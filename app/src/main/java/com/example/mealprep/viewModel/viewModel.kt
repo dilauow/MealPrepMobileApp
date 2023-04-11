@@ -23,6 +23,11 @@ class viewModel(application: Application): AndroidViewModel(application) {
             repositary.addMeal(meal)
         }
     }
+    fun deleteAllMeals(){
+        viewModelScope.launch (Dispatchers.IO ){
+            repositary.deleteMeals()
+        }
+    }
 
 
 }

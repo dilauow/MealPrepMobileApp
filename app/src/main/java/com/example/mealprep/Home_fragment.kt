@@ -41,7 +41,9 @@ class Home_fragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.action_home_fragment_to_searchMealsByIngredient)
         }
         binding.searchMeals.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_home_fragment_to_searchForMeals)
+//            Navigation.findNavController(it).navigate(R.id.action_home_fragment_to_searchForMeals)
+            mViewModel.deleteAllMeals()
+            println("deleted")
         }
 
 

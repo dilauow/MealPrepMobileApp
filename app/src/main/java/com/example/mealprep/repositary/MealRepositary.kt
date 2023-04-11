@@ -9,6 +9,9 @@ class MealRepositary(private val mealDao : MealDao) {
     suspend fun addMeal(meal: Meal){
         mealDao.addMeal(meal)
     }
+    suspend fun deleteMeals(){
+        mealDao.deleteAllData()
+    }
 
 }
 

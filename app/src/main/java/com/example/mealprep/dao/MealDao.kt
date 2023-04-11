@@ -15,4 +15,7 @@ interface MealDao {
     @Query("SELECT * FROM meal_table")
     fun readAllData(): LiveData<List<Meal>>
 
+    @Query("DELETE from meal_table")
+    fun deleteAllData()
+
 }
