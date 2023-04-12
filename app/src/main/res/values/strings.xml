@@ -5,4 +5,8 @@
     <string name="meal_search">Meal Search</string>
     <string name="add_meals_to_db">Add Meals to DB</string>
     <string name="search_meals_by_ingredients">Search Meals by Ingredients</string>
+    <string name="search_meal">Search Meal</string>
+    <string name="search">Search</string>
+    <string name="add_to_database">Add to Database</string>
+    <string name="no_data_to_display">No Data to Display</string>
 </resources>

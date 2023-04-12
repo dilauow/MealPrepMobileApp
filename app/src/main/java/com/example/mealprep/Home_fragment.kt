@@ -12,8 +12,9 @@ import androidx.navigation.Navigation
 import com.example.mealprep.controllers.userControllers
 import com.example.mealprep.databinding.FragmentHomeFragmentBinding
 import com.example.mealprep.datafiles.MealsData
+import com.example.mealprep.utilities.utils
 import com.example.mealprep.viewModel.viewModel
-import org.json.JSONObject
+
 
 class Home_fragment : Fragment() {
 
@@ -30,6 +31,7 @@ class Home_fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
 //        initiate controllers
         val uc = userControllers()
 //        initiate view model
@@ -41,11 +43,11 @@ class Home_fragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.action_home_fragment_to_searchMealsByIngredient)
         }
         binding.searchMeals.setOnClickListener {
-//            Navigation.findNavController(it).navigate(R.id.action_home_fragment_to_searchForMeals)
+            Navigation.findNavController(it).navigate(R.id.action_home_fragment_to_searchForMeals)
             mViewModel.deleteAllMeals()
             println("deleted")
+//
         }
-
 
         binding.addtoDB.setOnClickListener {
             val mealsJ = MealsData().mealData
@@ -61,6 +63,8 @@ class Home_fragment : Fragment() {
         return binding.root
 
     }
+
+
 
 
 }

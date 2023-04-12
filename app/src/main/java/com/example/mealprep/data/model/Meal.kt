@@ -5,11 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 @Entity(tableName = "meal_table")
 data class Meal(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @PrimaryKey(autoGenerate = false)
+    val id: String,
     val Meal: String,
     val DrinkAlternate: String,
     val Category: String,
+    val MealThumb:String,
     val Area : String,
     val Instructions : String,
     val Tags : String,

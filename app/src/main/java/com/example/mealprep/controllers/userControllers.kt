@@ -17,7 +17,7 @@ class userControllers {
         val strIngredients = listtoString(ingredients)
         val strMeasures = listtoString(measures)
 
-        val meal = Meal(0,mealJSONObject.getString("Meal"),mealJSONObject.getString("DrinkAlternate"),mealJSONObject.getString("Category"),mealJSONObject.getString("Area"),mealJSONObject.getString("Instructions"),mealJSONObject.getString("Tags"),mealJSONObject.getString("Youtube"),strIngredients,strMeasures)
+        val meal = Meal("0",mealJSONObject.getString("Meal"),mealJSONObject.getString("DrinkAlternate"),mealJSONObject.getString("Category"),mealJSONObject.getString("MealThumb"), mealJSONObject.getString("Area"),mealJSONObject.getString("Instructions"),mealJSONObject.getString("Tags"),mealJSONObject.getString("Youtube"),strIngredients,strMeasures)
         return meal
     }
     fun listtoString(value: List<String>): String {
@@ -31,6 +31,22 @@ class userControllers {
             mealdataclassList.add(mealObj)
         }
         return mealdataclassList
+    }
+
+    fun convertWebServiceJSONObjectsToMealObj(mealJSONObject: JSONObject):Meal{
+        val ingredients = mutableListOf<String>()
+        val measures = mutableListOf<String>()
+        mealJSONObject.keys().forEach { key ->
+            if (key.startsWith("strIngredient")) {
+                ingredients.add(mealJSONObject.getString(key))
+            } else if (key.startsWith("strMeasure")) {
+                measures.add(mealJSONObject.getString(key))
+            }
+        }
+        val strIngredients = listtoString(ingredients)
+        val strMeasures = listtoString(measures)
+        val meal = Meal(mealJSONObject.getString("idMeal"),mealJSONObject.getString("strMeal"),mealJSONObject.getString("strDrinkAlternate"),mealJSONObject.getString("strCategory"),mealJSONObject.getString("strMealThumb"), mealJSONObject.getString("strArea"),mealJSONObject.getString("strInstructions"),mealJSONObject.getString("strTags"),mealJSONObject.getString("strYoutube"),strIngredients,strMeasures)
+        return meal
     }
 
     companion object {
