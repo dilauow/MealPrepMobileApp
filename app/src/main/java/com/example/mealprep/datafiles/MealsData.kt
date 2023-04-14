@@ -3,7 +3,9 @@ import org.json.JSONObject
 
 class MealsData {
     val mealData = mutableListOf(  """
-            {"Meal":"Chicken Marengo",
+            {
+              "Id" : 0,
+            "Meal":"Chicken Marengo",
             "DrinkAlternate":null,
             "Category":"Chicken",
             "Area":"French",
@@ -32,6 +34,7 @@ class MealsData {
         }""",
         """
             {
+            "Id" : 1,
             "Meal":"Sweet and Sour Pork",
             "DrinkAlternate":null,
             "Category":"Pork",

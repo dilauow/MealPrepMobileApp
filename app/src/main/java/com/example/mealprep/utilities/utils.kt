@@ -11,7 +11,6 @@ import java.net.URL
 class utils {
      fun parseIngredientDataToJSON(stb: java.lang.StringBuilder):MutableList<String>{
         val json = JSONObject(stb.toString())
-        // Information about all the books extracted by this function
         var allMealItems = mutableListOf<String>()
         var jsonArray: JSONArray = json.getJSONArray("meals")
         for (i in 0..jsonArray.length()-1) {

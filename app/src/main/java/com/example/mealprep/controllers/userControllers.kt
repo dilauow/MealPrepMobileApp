@@ -17,7 +17,7 @@ class userControllers {
         val strIngredients = listtoString(ingredients)
         val strMeasures = listtoString(measures)
 
-        val meal = Meal("0",mealJSONObject.getString("Meal"),mealJSONObject.getString("DrinkAlternate"),mealJSONObject.getString("Category"),mealJSONObject.getString("MealThumb"), mealJSONObject.getString("Area"),mealJSONObject.getString("Instructions"),mealJSONObject.getString("Tags"),mealJSONObject.getString("Youtube"),strIngredients,strMeasures)
+        val meal = Meal(mealJSONObject.getInt("Id"),mealJSONObject.getString("Meal"),mealJSONObject.getString("DrinkAlternate"),mealJSONObject.getString("Category"),mealJSONObject.getString("MealThumb"), mealJSONObject.getString("Area"),mealJSONObject.getString("Instructions"),mealJSONObject.getString("Tags"),mealJSONObject.getString("Youtube"),strIngredients,strMeasures)
         return meal
     }
     fun listtoString(value: List<String>): String {
@@ -45,7 +45,7 @@ class userControllers {
         }
         val strIngredients = listtoString(ingredients)
         val strMeasures = listtoString(measures)
-        val meal = Meal(mealJSONObject.getString("idMeal"),mealJSONObject.getString("strMeal"),mealJSONObject.getString("strDrinkAlternate"),mealJSONObject.getString("strCategory"),mealJSONObject.getString("strMealThumb"), mealJSONObject.getString("strArea"),mealJSONObject.getString("strInstructions"),mealJSONObject.getString("strTags"),mealJSONObject.getString("strYoutube"),strIngredients,strMeasures)
+        val meal = Meal(mealJSONObject.getInt("idMeal"),mealJSONObject.getString("strMeal"),mealJSONObject.getString("strDrinkAlternate"),mealJSONObject.getString("strCategory"),mealJSONObject.getString("strMealThumb"), mealJSONObject.getString("strArea"),mealJSONObject.getString("strInstructions"),mealJSONObject.getString("strTags"),mealJSONObject.getString("strYoutube"),strIngredients,strMeasures)
         return meal
     }
 

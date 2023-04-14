@@ -9,4 +9,6 @@
     <string name="search">Search</string>
     <string name="add_to_database">Add to Database</string>
     <string name="no_data_to_display">No Data to Display</string>
+    <string name="meal">meal</string>
+    <string name="search_for_meals">Search for Meals</string>
 </resources>

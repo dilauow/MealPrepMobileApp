@@ -12,6 +12,9 @@ class MealRepositary(private val mealDao : MealDao) {
     suspend fun deleteMeals(){
         mealDao.deleteAllData()
     }
+    suspend fun getMealsByMealName(mealN :String): List<Meal?> {
+        return mealDao.getMealsBySpecificValue(mealN)
+    }
 
 }
 

@@ -5,10 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mealprep.data.model.Meal
 import com.example.mealprep.databinding.FragmentSearchMealsByIngredientBinding
 import com.example.mealprep.utilities.utils
+import com.example.mealprep.viewModel.viewModel
 import kotlinx.coroutines.runBlocking
 import java.net.HttpURLConnection
 import java.net.URL
@@ -24,13 +29,23 @@ import java.io.InputStreamReader
 
 class SearchMealsByIngredient : Fragment() {
     lateinit var binding : FragmentSearchMealsByIngredientBinding
-
     var idList = mutableListOf<String>()
+    lateinit var mealObjectDataMutableList : MutableList<Meal>
+
+//    initiate the recycler view
+    private lateinit var recyclerView: RecyclerView
+
+//    initiate view Model
+    lateinit var mViewModel : viewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
         }
+
+
+
+
     }
 
     override fun onCreateView(
@@ -39,26 +54,57 @@ class SearchMealsByIngredient : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_meals_by_ingredient, container,false)
-        binding.search.setOnClickListener {
-            print("button pressed")
-            var serviceLink = "https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast"
-            val stb = getDataFromWebService(serviceLink)
-            idList = utils().parseIngredientDataToJSON(stb)
-            retrieveMealsFromIds(idList)
+        recyclerView = binding.mealsViewRecyclerView
+        recyclerView.layoutManager =  LinearLayoutManager(requireContext())
+        recyclerView.setHasFixedSize(false)
 
+        mViewModel = ViewModelProvider(this).get(viewModel::class.java)
+
+
+        binding.search.setOnClickListener {
+//            get from edit text
+            val searchedText =binding.editTextViewSearchIngredient.text.toString()
+            print("button pressed")
+
+            var serviceLink = "https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchedText}"
+            val stb = getDataFromWebService(serviceLink)
+            if(JSONObject(stb.toString()).get("meals").equals(null)){
+                print("Nodata")
+                Toast.makeText(context, "No Meals that has ingredient $searchedText", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                idList = utils().parseIngredientDataToJSON(stb)
+                mealObjectDataMutableList= retrieveMealsFromIds(idList)
+                recyclerView.adapter =MealAdapter(mealObjectDataMutableList)
+            }
+
+        }
+        binding.databaseAdd.setOnClickListener {
+            val mealList = mealObjectDataMutableList
+            if (mealList.isEmpty()){
+                Toast.makeText(context, "No meal to add", Toast.LENGTH_SHORT).show()
+
+            }
+            else{
+                for (meal in mealList){
+                    mViewModel.addMeal(meal)
+//                    print(meal.Ingredients)
+                }
+            }
         }
 
         return binding.root
     }
 
-    fun retrieveMealsFromIds(idList: MutableList<String>){
+    fun retrieveMealsFromIds(idList: MutableList<String>): MutableList<Meal>{
         val tempMealDataArray =  mutableListOf<Meal>()
         for (id in idList){
             var link = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=$id"
             val stb = getDataFromWebService(link)
             tempMealDataArray.add(utils().parseMealDataToMealObj(stb))
         }
-        binding.mealText.setText(tempMealDataArray.toString())
+//        binding.mealText.setText(tempMealDataArray.toString())
+        return tempMealDataArray
 
     }
 
